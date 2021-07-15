@@ -62,7 +62,7 @@ $ mkdir Todo
 $ cd Todo
 ```
 
-- In that directory, initialize your project with `git init`, this will create a file called _package.json_ which will house all the global and development dependencies that would be installed. Follow all of the prompts until the end.
+- In that directory, initialize your project with `npm init`, this will create a file called _package.json_ which will house all the global and development dependencies that would be installed. Follow all of the prompts until the end.
 
 ```
 $ npm init
