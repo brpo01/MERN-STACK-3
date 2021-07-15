@@ -26,7 +26,7 @@ Now that our Virtual Server is up and running we can start building our applicat
 
 # **Backend configuration**
 
- - Update and Upgrade the *apt* package manager in order to have the newest updated version
+- Update and Upgrade the _apt_ package manager in order to have the newest updated version
 
 ```
 $ sudo apt update
@@ -34,12 +34,14 @@ $ sudo apt upgrade
 ```
 
 ## **Install NodeJS on Server**
+
 - Download the location of the NodeJS software on ubuntu's repository. It'll be stored in the `etc/apt/sources.list.d` directory.
 
 ```
 $ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 ```
-- Install NodeJS using the *apt* command
+
+- Install NodeJS using the _apt_ command
 
 ```
 $ sudo apt install nodejs -y
@@ -52,19 +54,23 @@ $ node -v
 ```
 
 ## **Application Code Setup**
-- Create a Directory using the called Todo using the *mkdir* command and enter into the folder using the *cd* command
+
+- Create a Directory using the called Todo using the _mkdir_ command and enter into the folder using the _cd_ command
 
 ```
 $ mkdir Todo
 $ cd Todo
 ```
-- In that directory, initialize your project with `git init`, this will create a file called *package.json* which will house all the global and development dependencies that would be installed. Follow all of the prompts until the end.
+
+- In that directory, initialize your project with `git init`, this will create a file called _package.json_ which will house all the global and development dependencies that would be installed. Follow all of the prompts until the end.
 
 ```
-$ git init
+$ npm init
 ```
+
 ## **Install ExpressJS & Other Dependencies**
-- Install Express using the *npm* command. NPM known as Node Package Manager is used for installing software on NodeJs. This package manager houses all of the dependencies that enable NodeJS to function.
+
+- Install Express using the _npm_ command. NPM known as Node Package Manager is used for installing software on NodeJs. This package manager houses all of the dependencies that enable NodeJS to function.
 
 ```
 $ npm install express
@@ -82,7 +88,7 @@ $ touch index.js
 $ npm install dotenv
 ```
 
-- Use th `vi` command to enter into the index.js file and write into the file. _vi_ also known as vim, it is a text editor in linux for writing code. The configuration for the virtual host will be written as below. You can use _i_ to insert, :_wq_ to write(save) into the file and quit. 
+- Use th `vi` command to enter into the index.js file and write into the file. _vi_ also known as vim, it is a text editor in linux for writing code. The configuration for the virtual host will be written as below. You can use _i_ to insert, :_wq_ to write(save) into the file and quit.
 
 ```
 $ const express = require('express');
@@ -106,6 +112,7 @@ app.listen(port, () => {
 console.log(`Server running on port ${port}`)
 });
 ```
+
 - Port has been set to `5000` in the index.js file. This is the port the server is going to run on. It can be can be tested on using the `node index.js` command
 
 ![3](https://user-images.githubusercontent.com/47898882/125827128-ea13b2b1-dd12-438e-ae9b-f71cf9c5ac31.JPG)
@@ -117,6 +124,7 @@ console.log(`Server running on port ${port}`)
 - Test on our browser using the public IP address or DNS name. `http://<Public-IP-Address>:5000 or http://DNS-name:5000`. "Welcome to Express" should be seen on the screen.
 
 ## **Create Routes(Endpoints)**
+
 - Create http endpoints for the app that allows creation of a new task(POST), displaying all tasks(GET) and deleting all tasks(DELETE). To achieve this, create another folder called `routes`.
 
 ```
@@ -126,10 +134,10 @@ $ mkdir routes
 - Create a file and name it api.js
 
 ```
-$ touch api.js 
+$ touch api.js
 ```
 
-- Use the *vi* command to enter into the file and write into the file
+- Use the _vi_ command to enter into the file and write into the file
 
 ```
 $ const express = require ('express');
@@ -149,14 +157,16 @@ router.delete('/todos/:id', (req, res, next) => {
 
 module.exports = router;
 ```
+
 ## **Create Models (Database Creation)**
+
 - To create the database, MongoDB is the NoSQL database we'll be using. It stores data in form of documents. `mongoose` is a package built for mongodb that makes working with mongodb easier. Install `mongoose` uisng the npm command
 
 ```
 $ npm install mongoose
 ```
 
-- Create a folder called *models* and add a file into it called *todo.js*
+- Create a folder called _models_ and add a file into it called _todo.js_
 
 ```
 $ mkdir models && cd models && touch todo.js
@@ -181,6 +191,7 @@ const Todo = mongoose.model('todo', TodoSchema);
 
 module.exports = Todo;
 ```
+
 - Update the api.js file to make use of the newly created model
 
 ```
@@ -218,6 +229,7 @@ module.exports = router;
 ```
 
 ## **Create Database in the Cloud**
+
 - Thankfully, there's an offering by MongoDB Atlas that allows us to spin up new clusters and create databases for our applications. To achieve this create an account on MongoDB Atlas, Sign up and create a new cluster. Follow the follwoing steps below
 
 ![5](https://user-images.githubusercontent.com/47898882/125833414-8c3607ba-4ebe-4dc5-81ac-e1d3ac7cc12d.JPG)
@@ -234,10 +246,10 @@ module.exports = router;
 
 ![9](https://user-images.githubusercontent.com/47898882/125834145-02720d5f-f15d-4583-8eb6-fb5fed5c0416.JPG)
 
-- Create a file in the Todo directory called .env and use *vi* to write into the file
+- Create a file in the Todo directory called .env and use _vi_ to write into the file
 
 ```
-$ touch .env 
+$ touch .env
 $ vi .env
 ```
 
@@ -288,11 +300,13 @@ app.listen(port, () => {
 console.log(`Server running on port ${port}`)
 });
 ```
+
 - In our code we connect to the database by referencing the .env file using `process.env.DB`. Run `node index.js` and you should see **Database connected successfully**
 
 ![10](https://user-images.githubusercontent.com/47898882/125835753-453d46e0-9c0c-460b-880f-0b567c655554.JPG)
 
 ## **Test Endpoints using Postman**
+
 - Our Database has been created and we've inserted our connection string in our code, so mongoose can connect to the database. Let us test using postman if we can add, display tasks from the database.
 
 **POST REQUEST**
@@ -302,9 +316,10 @@ console.log(`Server running on port ${port}`)
 ![12](https://user-images.githubusercontent.com/47898882/125837620-bd620868-40a8-4eb3-85b7-2bcdf7101067.JPG)
 
 # **Create Frontend Using React**
+
 - To get started with react run `npx create-react-app client ` in the Todo directory
 
-- Install both *concurrently*, *nodemon* & *axios* as they are dependencies needed for the app to run. Concurrently allows us to run more than one command at a time on the terminal while nodemon allows changes to be made to the application without restarting the server. Axios on the other hand will help us consume our REST API we created in the backend section.
+- Install both _concurrently_, _nodemon_ & _axios_ as they are dependencies needed for the app to run. Concurrently allows us to run more than one command at a time on the terminal while nodemon allows changes to be made to the application without restarting the server. Axios on the other hand will help us consume our REST API we created in the backend section.
 
 ```
 $ npm install concurrently nodemon axios
@@ -329,17 +344,21 @@ $ npm install concurrently nodemon axios
 ```
 $ npm run dev
 ```
+
 **Note** - You have to configure your outbound rules to allow connection to port 3000 as react by default uses this port for testing.
 
 ## **Creating your React Components**
-- Change Directory into *client*, and then into *src* and create a directory called *components*, enter into that directory and create three files `Todo.js`, `ListTodo.js` & `Input.js`
+
+- Change Directory into _client_, and then into _src_ and create a directory called _components_, enter into that directory and create three files `Todo.js`, `ListTodo.js` & `Input.js`
 
 ```
 $ cd client && cd src && mkdir components && touch Todo.js ListTodo.js Input.js
 ```
+
 - Input these pieces of code into the files.
 
 **Input.js**
+
 ```
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -389,6 +408,7 @@ export default Input
 ```
 
 **ListTodo.js**
+
 ```
 import React from 'react';
 
@@ -419,6 +439,7 @@ export default ListTodo
 ```
 
 **Todo.js**
+
 ```
 import React, {Component} from 'react';
 import axios from 'axios';
@@ -480,6 +501,7 @@ export default Todo;
 - Change directory back to the `src` and make changes to the `App.js`, `App.css` & `index.css` files
 
 **App.js**
+
 ```
 import React from 'react';
 
@@ -498,6 +520,7 @@ export default App;
 ```
 
 **App.css**
+
 ```
 .App {
 text-align: center;
@@ -587,6 +610,7 @@ margin-top: 0;
 }
 }
 ```
+
 **index.css**
 
 ```
@@ -608,6 +632,7 @@ font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 monospace;
 }
 ```
+
 - Change back to the Todo directory and run the command `npm run dev`. You should see have your application running with a User Interface:
 
 ![14](https://user-images.githubusercontent.com/47898882/125841056-2465e6bb-6264-4a07-9e3b-3ab895a023c2.JPG)
@@ -615,20 +640,3 @@ monospace;
 - Add more Tasks to the todo list at your own discretion.
 
 **This is how to implement a MERN Stack Application and deploy to AWS EC2 from start to finish**.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
